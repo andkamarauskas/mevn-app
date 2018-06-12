@@ -1,0 +1,101 @@
+.table-top-title{
+	margin-top: 25px;
+	padding: 0 20px;
+	height: 80px;
+	line-height: 80px;
+	border: 1px solid #dee2e6;
+}
+.table-top-title span{
+	font-size: 1.5em;
+	font-weight: bold;
+}
+.client-popup-form{
+	position: absolute;
+	top: 30px;
+	left: 30%;
+	width: 40%;
+	border: 1px solid #cecece;
+	background: #fdfdfd;
+	border-radius: 3px;
+	box-shadow: 0 0 5px #575757;
+}
+.client-popup-form label{
+	font-weight: bold;
+}
+.form-header {
+	height: 60px;
+	line-height: 60px;
+	margin-bottom: 20px;
+	border-bottom: 2px solid #ddd;
+}
+.form-name {
+	font-weight: bold;
+	font-size: 20px;
+	margin-left: 20px;
+}
+.providers-actions {
+	display: inline;
+}
+.provider-item {
+	margin-left: 6px;
+	height: 24px;
+	width: 120px;
+}
+.provider-item:disabled{
+	background-color: inherit;
+	color: inherit;
+	border: none;
+}
+.providers-label {
+	padding-top: 3px;
+}
+.provider-input {
+	display: inline;
+	width: 55%;
+	height: 30px;
+}
+.add-provider-btn {
+	margin-top: -1px;
+	width: 43%;
+}
+.providers-list {
+	display: inline-block;
+	padding: 10px 20px 10px 35px;
+	border: 1px solid #ced4da;
+	border-radius: 0.25rem;
+}
+.icon-button {
+	margin-left: 5px;
+	cursor: pointer;
+}
+.icon-button:hover {
+	color: #888;
+}
+.new-client-button {
+	float: right;
+    margin-top: 20px;
+}
+.btn-light {
+	background-color: #e2e6ea;
+	border-color: #dae0e5;	
+}
+.btn-light:hover {
+	background-color: #6c757d;
+	border-color: #6c757d;
+	color: #ddd;
+}
+.form-footer {
+	height: 60px;
+	line-height: 60px;
+	border-top: 2px solid #ddd;
+}
+.form-button {
+	float: right;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+.form-button-del {
+	float: left;
+	margin-top: 10px;
+	margin-left: 10px;
+}

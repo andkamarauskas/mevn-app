@@ -1,0 +1,24 @@
+{
+  "name": "mevn-task",
+  "version": "0.0.1",
+  "private": true,
+  "description": "MENV task",
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "main": "server.js",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "express": "^4.12.3",
+    "mongoose": "^5.1.1",
+    "swagger-express-mw": "^0.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "should": "^7.1.0",
+    "supertest": "^1.0.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

@@ -1,0 +1,327 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Task App
+# during dev, should point to your local machine
+host: localhost:8098
+# basePath prefixes all resource paths 
+basePath: /
+# 
+tags:
+- name: "clients"
+  description: "Calls to add, edit and list clients"
+- name: "providers"
+  description: "Calls to add, edit, delete and list providers."
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /getClients:
+    x-swagger-router-controller: ClientController
+    get:
+      tags:
+        - "clients"
+      description: Returns all clients data with assigned providers
+      operationId: getClients
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/ClientsRes"
+        "400":
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /newClient:
+    x-swagger-router-controller: ClientController
+    post:
+      tags:
+        - "clients"
+      description: Add new client
+      operationId: newClient
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: "Object to add new client"
+          schema:
+            $ref: "#/definitions/NewClientReq"
+      responses:
+        "201":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/NewClientRes"
+        # responses may fall through to errors
+        "400":
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /updateClient/{id}:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: ClientController
+    put:
+      tags:
+        - "clients"
+      description: Edit client data
+      operationId: updateClient
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          description: "Object to edit client data, each parameter is optional"
+          schema:
+            $ref: "#/definitions/EditClientReq"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/SuccessResponse"
+        # responses may fall through to errors
+        "400":
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /deleteClient/{id}:
+    x-swagger-router-controller: ClientController
+    delete:
+      tags:
+        - "clients"
+      description: Delete client
+      operationId: deleteClient
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /getProviders:
+    x-swagger-router-controller: ProviderController
+    get:
+      tags:
+        - "providers"
+      description: Returns all providers
+      operationId: getProviders
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/ProvidersRes"
+        "400":
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /newProvider:
+    x-swagger-router-controller: ProviderController
+    post:
+      tags:
+        - "providers"
+      description: Add new provider
+      operationId: newProvider
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: "Object to add new provider"
+          schema:
+            $ref: "#/definitions/NewProviderReq"
+      responses:
+        "201":
+          description: Success
+          schema:
+            $ref: "#/definitions/NewProviderRes"
+        "400":
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /updateProvider/{id}:
+    x-swagger-router-controller: ProviderController
+    put:
+      tags:
+        - "providers"
+      description: Edit provider data
+      operationId: updateProvider
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          description: "Object to edit provider"
+          schema:
+            $ref: "#/definitions/EditProviderReq"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /deleteProvider/{id}:
+    x-swagger-router-controller: ProviderController
+    delete:
+      tags:
+        - "providers"
+      description: Delete provider
+      operationId: deleteProvider
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  NewClientReq:
+    required:
+      - name
+      - email
+      - phone
+      - providers
+    properties:
+      name:
+        type: string
+        example: "Tony Stark"
+      email:
+        type: string
+        example: "tony@stark.com"
+      phone:
+        type: string
+        example: "+37064103333"
+      providers:
+        type: array
+        items:
+          type: object
+          properties:
+            _id: 
+              type: string
+  NewClientRes:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        example: "New client added"
+      client_id:
+        type: string
+        example: "5b1419ab3fe56559dda4c2b1"
+      
+  EditClientReq:
+    properties:
+      name:
+        type: string
+        example: "Tony Stark"
+      email:
+        type: string
+        example: "tony@stark.com"
+      phone:
+        type: string
+        example: "+37064103333"
+  ClientsRes:
+    type: array
+    items:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+          example: "James Bond"
+        email:
+          type: string
+          example: "james@bond.com"
+        phone:
+          type: string
+          example: "+37064103333"
+        providers:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                example: "5affccae20d7ab6486287b63"
+  NewProviderReq:
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        example: "provider1"
+  NewProviderRes:
+    properties:
+      message:
+        type: string
+        example: "New provider added"
+      provider_id:
+        type: string
+        example: "5affccae20d7ab6486287b63"
+  EditProviderReq:
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        example: "provider1"
+  ProvidersRes:
+      type: array
+      items:
+        type: object
+        properties:
+          _id:
+            type: string
+          name:
+            type: string
+            example: "provider1"
+  SuccessResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        example: "Success message"
+  ErrorResponse:
+    required:
+      - message
+      - error
+    properties:
+      message:
+        type: string
+        example: "Error message"
+      error:
+        type: string
+        example: "Error explanation"
