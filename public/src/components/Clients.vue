@@ -284,6 +284,13 @@ export default {
       try {
         const response = await ProviderService.deleteProvider(id)
         this.providers.splice(index, 1)
+        this.clients.map((client, cIndex) => {
+          client.providers.map((provider, pIndex) => {
+            if (provider._id === id) {
+              this.clients[cIndex].providers.splice(pIndex, 1)
+            }
+          })
+        })
         this.formMessage('form', 'success', response.data.message)
       } catch (err) {
         this.formMessage('form', 'danger', err.response.data.message, err.response.data.error)
