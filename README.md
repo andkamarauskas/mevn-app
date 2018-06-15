@@ -2,7 +2,7 @@
 
 1. Get project:
 ```shell
-git clone https://github.com/Bitlocus/mevn-app.git
+git clone https://github.com/andkamarauskas/mevn-app
 ```
 2. Change .env.example to .env
 3. Add credencials to .env
